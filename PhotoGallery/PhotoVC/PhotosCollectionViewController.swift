@@ -47,8 +47,30 @@ class PhotosCollectionViewController: UICollectionViewController{
     
     //MARK: - NAvigationItems Action
     
-    @objc private func addBarButtonTapped() {
+    @objc private func addBarButtonTapped(sender: UIBarButtonItem) {
+        let selectedPhotos = collectionView.indexPathsForSelectedItems?.reduce([], { (photosss, indexPath) -> [UnsplahPhoto] in
+            var mutablePhotos = photosss
+            let photo = photos[indexPath.item]
+            mutablePhotos.append(photo)
+            return mutablePhotos
+        })
         
+        let alertController = UIAlertController(title: "", message: "\(selectedPhotos!.count) фото будут добавлены в альбом", preferredStyle: .alert)
+        let add = UIAlertAction(title: "Добавить", style: .default) { (action) in
+            let tabbar = self.tabBarController as! MainTabBarController
+            let navVC = tabbar.viewControllers?[1] as! UINavigationController
+            let likesVC = navVC.topViewController as! LikesCollectionViewController
+            
+            likesVC.photos.append(contentsOf: selectedPhotos ?? [])
+            likesVC.collectionView.reloadData()
+            
+            self.refresh()
+        }
+        let cancel = UIAlertAction(title: "Отменить", style: .cancel) { (action) in
+        }
+        alertController.addAction(add)
+        alertController.addAction(cancel)
+        present(alertController, animated: true)
     }
     
     @objc private func actionButtonTapped(sender: UIBarButtonItem) {

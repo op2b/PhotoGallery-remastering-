@@ -9,9 +9,9 @@ class MainTabBarController: UITabBarController {
         view.backgroundColor = .black
         
         let photoVC = PhotosCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        let likesVC = LikesCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
         
-        
-        viewControllers = [generateNavigationController(rootViewControlelr: photoVC, title: "Photos", image: UIImage(named: "photos")!), generateNavigationController(rootViewControlelr: ViewController(), title: "Favorites" , image: UIImage(named: "star")!)]
+        viewControllers = [generateNavigationController(rootViewControlelr: photoVC, title: "Photos", image: UIImage(named: "photos")!), generateNavigationController(rootViewControlelr: likesVC, title: "Favorites" , image: UIImage(named: "star")!)]
     }
     
     private func generateNavigationController(rootViewControlelr: UIViewController, title: String, image: UIImage) -> UIViewController{
