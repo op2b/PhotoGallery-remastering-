@@ -1,12 +1,14 @@
 
 import UIKit
 import Foundation
+
+
 class LikesCollectionViewController: UICollectionViewController {
     
     var photos = [UnsplahPhoto]()
     
     private lazy var trashBarButtonItem: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: nil)
+        return UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAction))
     }()
     
     private let enterSearchTermLabel: UILabel = {
@@ -18,12 +20,21 @@ class LikesCollectionViewController: UICollectionViewController {
         return label
     }()
     
+    private var selectedImages = [UIImage]()
+    
+    
+    private var numberOfSelectedPohotos: Int {
+        return collectionView.indexPathsForSelectedItems?.count ?? 0
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionView.backgroundColor = .white
         collectionView.register(LikesCollectionViewCell.self, forCellWithReuseIdentifier: LikesCollectionViewCell.reuseId)
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        collectionView.allowsMultipleSelection = true
         
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.minimumInteritemSpacing = 1
@@ -31,6 +42,7 @@ class LikesCollectionViewController: UICollectionViewController {
         
         setupEnterLabel()
         setupNavigationBar()
+        updateNavButtonState()
         
     }
     
@@ -42,6 +54,10 @@ class LikesCollectionViewController: UICollectionViewController {
         enterSearchTermLabel.topAnchor.constraint(equalTo: collectionView.topAnchor, constant: 50).isActive = true
     }
     
+    func updateNavButtonState() {
+        trashBarButtonItem.isEnabled = numberOfSelectedPohotos > 0
+    }
+    
     private func setupNavigationBar() {
         let titleLabel = UILabel()
         titleLabel.text = "Favorites"
@@ -51,6 +67,32 @@ class LikesCollectionViewController: UICollectionViewController {
         navigationItem.rightBarButtonItem = trashBarButtonItem
         trashBarButtonItem.isEnabled = false
     }
+    
+    @objc func deleteAction() {
+        photos.removeAll()
+        collectionView.reloadData()
+    }
+    
+    //MARK: - UICOllectionViewDataSource and Delegate
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as!  LikesCollectionViewCell
+        updateNavButtonState()
+        guard let image = cell.myImageView.image else {return}
+        selectedImages.append(image)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+         let cell = collectionView.cellForItem(at: indexPath) as! LikesCollectionViewCell
+         updateNavButtonState()
+         guard let image = cell.myImageView.image else {return}
+        if let index = selectedImages.firstIndex(of: image) {
+            selectedImages.remove(at: index)
+        }
+        
+    }
+    
+    
     
     // MARK: - UICollectionViewDataSource
     
@@ -76,4 +118,4 @@ extension LikesCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-
+    

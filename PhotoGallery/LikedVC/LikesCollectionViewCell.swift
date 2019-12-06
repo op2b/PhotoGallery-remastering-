@@ -1,14 +1,30 @@
 
 import Foundation
 import UIKit
-import SDWebImage
+
 
 class LikesCollectionViewCell: UICollectionViewCell {
     
     static let reuseId = "LikesCollectionViewCell"
     
-    var myImageView: UIImageView = {
-        let imageView = UIImageView()
+    private let checkMark: UIImageView = {
+        let image = UIImage(named: "bird1")
+        let imageView = UIImageView(image: image)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.alpha = 0
+        return imageView
+    }()
+    
+    override var isSelected: Bool {
+        didSet {
+            updateState()
+        }
+    }
+    
+   
+    
+    var myImageView: WebImageView = {
+        let imageView = WebImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -19,10 +35,12 @@ class LikesCollectionViewCell: UICollectionViewCell {
     var unsplashPhoto: UnsplahPhoto! {
         didSet {
             let photoUrl = unsplashPhoto.urls["regular"] 
-            guard let imageUrl = photoUrl, let url = URL(string: imageUrl) else { return }
-            myImageView.sd_setImage(with: url, completed: nil)
+            guard let imageUrl = photoUrl else { return }
+            myImageView.set(imageUrl: imageUrl)
+            
         }
     }
+    
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -33,9 +51,22 @@ class LikesCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         backgroundColor = .green
-        
         setupImageView()
+        setUpCheckMArkView()
+        updateState()
+    
     }
+    
+    private func updateState() {
+        myImageView.alpha = isSelected ? 0.7 : 1
+        checkMark.alpha = isSelected ? 1 : 0
+    }
+    
+    private func setUpCheckMArkView() {
+        addSubview(checkMark)
+        checkMark.trailingAnchor.constraint(equalTo: myImageView.trailingAnchor, constant: -8).isActive = true
+        checkMark.bottomAnchor.constraint(equalTo: myImageView.bottomAnchor, constant: -8).isActive = true
+      }
     
     func setupImageView() {
         addSubview(myImageView)
@@ -47,9 +78,11 @@ class LikesCollectionViewCell: UICollectionViewCell {
     
     func set(photo: UnsplahPhoto) {
         let photoUrl = photo.urls["full"]
-        guard let photoURL = photoUrl, let url = URL(string: photoURL) else { return }
-        myImageView.sd_setImage(with: url, completed: nil)
+        guard let photoURL = photoUrl else { return }
+        myImageView.set(imageUrl: photoURL)
     }
+    
+  
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
