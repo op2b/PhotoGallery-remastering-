@@ -1,8 +1,7 @@
-
 import UIKit
 
 
-class PhotoCell: UICollectionViewCell {
+class NewPhotoCell: UICollectionViewCell {
 
     static let reuseId = "Cell"
     
@@ -23,7 +22,7 @@ class PhotoCell: UICollectionViewCell {
      let photoImageView: WebImageView = {
         let imageView = WebImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        imageView.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -33,6 +32,7 @@ class PhotoCell: UICollectionViewCell {
             let photoUrl = unsplashPhoto.urls["regular"]
             guard let imageUrl = photoUrl
                 else {return}
+            print(imageUrl)
             photoImageView.set(imageUrl:imageUrl)
         }
     }

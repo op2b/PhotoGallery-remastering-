@@ -58,7 +58,7 @@ class PhotosCollectionViewController: UICollectionViewController{
         let alertController = UIAlertController(title: "", message: "\(selectedPhotos!.count) фото будут добавлены в альбом", preferredStyle: .alert)
         let add = UIAlertAction(title: "Добавить", style: .default) { (action) in
             let tabbar = self.tabBarController as! MainTabBarController
-            let navVC = tabbar.viewControllers?[1] as! UINavigationController
+            let navVC = tabbar.viewControllers?[2] as! UINavigationController
             let likesVC = navVC.topViewController as! LikesCollectionViewController
             
             likesVC.photos.append(contentsOf: selectedPhotos ?? [])
@@ -117,6 +117,13 @@ class PhotosCollectionViewController: UICollectionViewController{
         
     }
     
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        networkDataFecher.networkService.cancel()
+    }
+    
+    override func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        networkDataFecher.networkService.resume()
+    }
     //MARK: - UICOllectionViewDataSource and Delegate
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

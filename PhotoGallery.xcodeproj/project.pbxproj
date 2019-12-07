@@ -21,6 +21,8 @@
 		9582CA5D235686F800DEA077 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9582CA5C235686F800DEA077 /* MainTabBarController.swift */; };
 		9582CA5F235687C200DEA077 /* PhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9582CA5E235687C200DEA077 /* PhotosCollectionViewController.swift */; };
 		959B1F3B239AE020003F91C8 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B1F3A239AE020003F91C8 /* WebImageView.swift */; };
+		959B1F4E239BC105003F91C8 /* NewPhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B1F4D239BC105003F91C8 /* NewPhotoVC.swift */; };
+		959B1F50239BC35F003F91C8 /* NewPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B1F4F239BC35F003F91C8 /* NewPhotoCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		9582CA5C235686F800DEA077 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		9582CA5E235687C200DEA077 /* PhotosCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewController.swift; sourceTree = "<group>"; };
 		959B1F3A239AE020003F91C8 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
+		959B1F4D239BC105003F91C8 /* NewPhotoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPhotoVC.swift; sourceTree = "<group>"; };
+		959B1F4F239BC35F003F91C8 /* NewPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPhotoCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,7 @@
 				9582CA4A2356865E00DEA077 /* AppDelegate.swift */,
 				9582CA5C235686F800DEA077 /* MainTabBarController.swift */,
 				9582CA4C2356865E00DEA077 /* ViewController.swift */,
+				959B1F4C239BC0D0003F91C8 /* NewWallpersViewController */,
 				95EE4D9A235D073200A0F785 /* LikedVC */,
 				95EE4D99235D071E00A0F785 /* PhotoVC */,
 				954C5386235CB41B00009C50 /* Models */,
@@ -111,6 +116,15 @@
 				9582CA562356866100DEA077 /* Info.plist */,
 			);
 			path = PhotoGallery;
+			sourceTree = "<group>";
+		};
+		959B1F4C239BC0D0003F91C8 /* NewWallpersViewController */ = {
+			isa = PBXGroup;
+			children = (
+				959B1F4D239BC105003F91C8 /* NewPhotoVC.swift */,
+				959B1F4F239BC35F003F91C8 /* NewPhotoCell.swift */,
+			);
+			path = NewWallpersViewController;
 			sourceTree = "<group>";
 		};
 		95EE4D99235D071E00A0F785 /* PhotoVC */ = {
@@ -202,9 +216,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				959B1F4E239BC105003F91C8 /* NewPhotoVC.swift in Sources */,
 				954C5380235CAA3B00009C50 /* NetWorkService.swift in Sources */,
 				954C538C235D01E700009C50 /* LikesCollectionViewController.swift in Sources */,
 				954C538E235D035800009C50 /* LikesCollectionViewCell.swift in Sources */,
+				959B1F50239BC35F003F91C8 /* NewPhotoCell.swift in Sources */,
 				9582CA4D2356865E00DEA077 /* ViewController.swift in Sources */,
 				959B1F3B239AE020003F91C8 /* WebImageView.swift in Sources */,
 				9582CA4B2356865E00DEA077 /* AppDelegate.swift in Sources */,

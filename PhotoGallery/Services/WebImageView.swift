@@ -9,11 +9,10 @@ class WebImageView: UIImageView {
         
         if let cached = URLCache.shared.cachedResponse(for: URLRequest(url: url)) {
             self.image = UIImage(data: cached.data)
-            print("cahe from")
             return
         }
         
-        print("from inet")
+      
         
         let dataTask = URLSession.shared.dataTask(with: url) { [weak self] (data, response, erroe) in
             DispatchQueue.main.async {

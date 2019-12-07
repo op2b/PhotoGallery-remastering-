@@ -17,6 +17,22 @@ class NetworkDataFecther {
         }
     }
     
+    func  fetchNewImage(complition: @escaping ([UnsplahPhoto]?) -> ()){
+           networkService.request() { (data, error) -> (Void) in
+               if let error = error {
+                   print("Error recive requesting data: \(error.localizedDescription)")
+                   complition(nil)
+               }
+            do {
+               let decode = try JSONDecoder().decode([UnsplahPhoto].self, from: data!)
+                  complition(decode)
+            } catch let error{
+                print(error)
+            }
+             
+           }
+       }
+    
     func decodeJSON<T: Decodable>(type: T.Type, from: Data?) -> T? {
         let decoder = JSONDecoder()
         guard let data = from else {return nil}
